@@ -166,7 +166,7 @@ def json2elem(json_data, factory=ET.Element):
     as the factory parameter.
     """
 
-    return internal_to_elem(json.loads(json_data), factory)
+    return internal_to_elem(json.loads(json_data, object_pairs_hook=OrderedDict), factory)
 
 
 def xml2json(xmlstring, options, strip_ns=1, strip=1):
@@ -186,7 +186,7 @@ def json2xml(json_data, factory=ET.Element):
     as the factory parameter.
     """
     if not isinstance(json_data, dict):
-        json_data = json.loads(json_data)
+        json_data = json.loads(json_data, object_pairs_hook=OrderedDict)
 
     elem = internal_to_elem(json_data, factory)
     return ET.tostring(elem)
